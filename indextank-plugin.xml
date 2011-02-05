@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+
+<plugins>
+	<plugin active="1" executionorder="5" product="vbblog">
+		<title>IndexTank Plugin: Post New Entry Start</title>
+		<hookname>newpost_complete</hookname>
+		<phpcode><![CDATA[
+		  include_once("./plugins/indextank_plugin.php");
+		  indextank_new_post($foruminfo, $threadinfo, $post, $postinfo);
+		]]></phpcode>
+	</plugin>
+	<plugin active="1" executionorder="5" product="vbblog">
+		<title>IndexTank Plugin: Search Start</title>
+		<hookname>search_start</hookname>
+		<phpcode><![CDATA[
+      include_once("./plugins/indextank_plugin.php");
+      indextank_search($_REQUEST, $vbulletin, $perpage, $vbphrase, $current_user);
+      return;
+		]]></phpcode>
+	</plugin>
+</plugins>
+
