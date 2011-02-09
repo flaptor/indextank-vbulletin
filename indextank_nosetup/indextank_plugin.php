@@ -1,11 +1,14 @@
 <?php
-include_once("./plugins/indextank_client.php");
+include_once("./indextank/indextank_client.php");
+
+$api_name = "<API_URL>";
+$index_name = "<INDEX_NAME>";
 
 function indextank_new_post($foruminfo, $threadinfo, $post, $postinfo)
 {
 
-    $api = new ApiClient("http://:QRV0uB+9WKo9LZ@2ehis.api.indextank.com");
-    $index = $api->get_index("test");
+    $api = new ApiClient($api_name);
+    $index = $api->get_index($index_name);
 
     $data = array("text" => $post["title"] . " " . $post["message"],
                   "title" => $post["title"],
@@ -28,8 +31,8 @@ function indextank_search($_REQUEST, $vbulletin, $perpage, $vbphrase, $current_u
     if ($_REQUEST['do'] == 'showresults')
     {
         $searchid = $vbulletin->GPC['searchid'];
-        $api = new ApiClient("http://:QRV0uB+9WKo9LZ@2ehis.api.indextank.com");
-        $index = $api->get_index("test");
+        $api = new ApiClient($api_name);
+        $index = $api->get_index($index_name);
 
         $db = $vbulletin->db;
 
