@@ -88,16 +88,31 @@ function indextank_search($_REQUEST, $vbulletin, $perpage, $vbphrase, $current_u
 }
 
 if (isset($_REQUEST['do']) AND $_REQUEST['do'] == 'reindex') {
-    echo 'Reindexing all your posts. This may take a while';
+    echo "Indexing all your posts. This may take a while. <br>\n";
+    flush();
 
     $api = new ApiClient($api_name);
     $index = $api->get_index($index_name);
 
     $db = $vbulletin->db;
     $sql ='
+        SELECT count(*)
+        FROM ' . TABLE_PREFIX . 'post';
+    $row = $db->query_first($sql);
+    $total_posts = $row['count(*)'];
+
+    echo "Importing $total_posts posts from your database. <br>\n";
+    flush();
+
+    $total_posts = (int) $total_posts;
+
+    $sql ='
         SELECT *
         FROM ' . TABLE_PREFIX . 'post';
     $posts = $db->query_read($sql);
+
+    $counter = 0;
+    $percent = 0;
 
     while( $post = $db->fetch_array($posts) ) {
 
@@ -114,10 +129,20 @@ if (isset($_REQUEST['do']) AND $_REQUEST['do'] == 'reindex') {
         }
 
 
-        echo '. ';
+        $counter++;
+        if ( $total_posts > 100 AND (int) ($counter / $total_posts) > $percent) {
+            echo '. ';
+            $percent = (int) ($counter / $total_posts);
+            if ($percent % 10 == 0) {
+                echo "%$percent <br>\n";
+            }
+            flush();
+        }
     }
 
-    echo 'Reindexing finished successfully';
+    echo "<br>\n";
+    echo 'Indexing finished successfully';
+    flush();
 }
 
 ?>
