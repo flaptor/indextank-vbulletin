@@ -87,7 +87,7 @@ function indextank_search($_REQUEST, $vbulletin, $perpage, $vbphrase, $current_u
     }
 }
 
-if (isset($_REQUEST['do']) AND $_REQUEST['do'] == 'reindex') {
+if (isset($_REQUEST['do']) AND $_REQUEST['do'] == 'index') {
     echo "Indexing all your posts. This may take a while. <br>\n";
     flush();
 
