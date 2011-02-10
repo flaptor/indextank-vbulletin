@@ -11,3 +11,8 @@ Installation instructions:
 5.- Upload the .php files to your vbulletin directory in your web server.
 6.- Go to vBulletin's Admin Control Panel >> Plugins & Products >> Download / Upload Plugins and upload the 'indextank-plugin.xml' file that comes with the plugin release.
 
+===================================================================
+Features:
+- Index new post.
+- Search (no sorting)
+- Index all existing posts.
