@@ -6,7 +6,7 @@
 		<title>IndexTank Plugin: Post New Entry Start</title>
 		<hookname>newpost_complete</hookname>
 		<phpcode><![CDATA[
-		  include_once("./indextank/indextank_plugin.php");
+		  include_once("./indextank_plugin.php");
 		  indextank_new_post($foruminfo, $threadinfo, $post, $postinfo);
 		]]></phpcode>
 	</plugin>
@@ -14,7 +14,7 @@
 		<title>IndexTank Plugin: Search Start</title>
 		<hookname>search_start</hookname>
 		<phpcode><![CDATA[
-      include_once("./indextank/indextank_plugin.php");
+      include_once("./indextank_plugin.php");
       indextank_search($_REQUEST, $vbulletin, $perpage, $vbphrase, $current_user);
       return;
 		]]></phpcode>
