@@ -3,9 +3,6 @@
 echo "Enter your api url:"
 read API_URL
 
-echo "Enter your index name:"
-read INDEX_NAME
-
 # copy files to a set up dir, just to avoid touching the original ones
 cp indextank_plugin.php.new indextank_plugin.php
 

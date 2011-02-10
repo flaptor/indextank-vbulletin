@@ -3,7 +3,7 @@ require_once('./global.php');
 include_once('./indextank_client.php');
 
 $api_name = '<API_URL>';
-$index_name = '<INDEX_NAME>';
+$index_name = 'vbulletin';
 
 function indextank_new_post($foruminfo, $threadinfo, $post, $postinfo)
 {
@@ -87,12 +87,22 @@ function indextank_search($_REQUEST, $vbulletin, $perpage, $vbphrase, $current_u
     }
 }
 
-if (isset($_REQUEST['do']) AND $_REQUEST['do'] == 'index') {
+if (isset($_REQUEST['do']) AND $_REQUEST['do'] == 'setup') {
     echo "Indexing all your posts. This may take a while. <br>\n";
     flush();
 
     $api = new ApiClient($api_name);
     $index = $api->get_index($index_name);
+    // setup 'vbulletin' index
+    if ($index->exists()) {
+        $index->delete_index();
+    }
+    $index->create_index();
+
+    while (! $index->has_started()) {
+        sleep(1);
+    }
+    // Index created
 
     $db = $vbulletin->db;
     $sql ='
