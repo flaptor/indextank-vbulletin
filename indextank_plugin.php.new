@@ -10,17 +10,14 @@ function indextank_new_post($foruminfo, $threadinfo, $post, $postinfo)
     global $api_url;
     global $index_name;
 
-    $api = new ApiClient($api_url);
-    $index = $api->get_index($index_name);
+    $api = new ApiClient('<API_URL>');
+    $index = $api->get_index('vbulletin');
 
     $data = array('text' => $post['title'] . ' ' . $post['message'],
                   'title' => $post['title'],
                   'content' => $post['message'],
                   'threadid' => $threadinfo['threadid'],
                   'post' => print_r($post, true),
-                  'foruminfo' => print_r($foruminfo, true),
-                  'threadinfo' => print_r($threadinfo, true),
-                  'postinfo' => print_r($postinfo, true),
                   'all_field'=> 'todos',
                   'username' => $post['username']);
 

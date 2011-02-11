@@ -7,8 +7,7 @@ read API_URL
 cp indextank_plugin.php.new indextank_plugin.php
 
 sed "s|<API_URL>|$API_URL|" indextank_plugin.php > indextank_plugin.php.tmp
-sed "s|<INDEX_NAME>|$INDEX_NAME|" indextank_plugin.php.tmp > indextank_plugin.php
-rm indextank_plugin.php.tmp
+mv -f indextank_plugin.php.tmp indextank_plugin.php
 
 echo 'Setup successful'
 
