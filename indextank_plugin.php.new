@@ -2,13 +2,15 @@
 require_once('./global.php');
 include_once('./indextank_client.php');
 
-$api_name = '<API_URL>';
+$api_url = '<API_URL>';
 $index_name = 'vbulletin';
 
 function indextank_new_post($foruminfo, $threadinfo, $post, $postinfo)
 {
+    global $api_url;
+    global $index_name;
 
-    $api = new ApiClient($api_name);
+    $api = new ApiClient($api_url);
     $index = $api->get_index($index_name);
 
     $data = array('text' => $post['title'] . ' ' . $post['message'],
@@ -31,8 +33,11 @@ function indextank_search($_REQUEST, $vbulletin, $perpage, $vbphrase, $current_u
 
     if ($_REQUEST['do'] == 'showresults')
     {
+        global $api_url;
+        global $index_name;
+
         $searchid = $vbulletin->GPC['searchid'];
-        $api = new ApiClient($api_name);
+        $api = new ApiClient($api_url);
         $index = $api->get_index($index_name);
 
         $db = $vbulletin->db;
@@ -91,7 +96,7 @@ if (isset($_REQUEST['do']) AND $_REQUEST['do'] == 'setup') {
     echo "Indexing all your posts. This may take a while. <br>\n";
     flush();
 
-    $api = new ApiClient($api_name);
+    $api = new ApiClient($api_url);
     $index = $api->get_index($index_name);
     // setup 'vbulletin' index
     if ($index->exists()) {
